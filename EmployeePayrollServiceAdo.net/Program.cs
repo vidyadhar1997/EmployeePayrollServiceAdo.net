@@ -21,7 +21,7 @@ namespace EmployeePayrollServiceAdo.net
             employeeModel.Tax = 300;
             employeeModel.NetPay = 2500;
             employeeRepo.checkConnection();
-            //employeeRepo.getAllEmployee();
+            employeeRepo.getAllEmployee();
             employeeRepo.addEmployee(employeeModel);
         }
     }
