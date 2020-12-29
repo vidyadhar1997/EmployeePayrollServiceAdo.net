@@ -52,7 +52,7 @@ namespace EmployeePayrollServiceAdo.net
                             employeeModel.TaxablePay = Convert.ToDouble(sqlDataReader.GetFloat(9));
                             employeeModel.Tax = sqlDataReader.GetDouble(10);
                             employeeModel.NetPay = Convert.ToDouble(sqlDataReader.GetFloat(11));
-                            Console.WriteLine("{0},{1},{2},{3},{4},{5}", employeeModel.EmployeeID, employeeModel.EmployeeName, employeeModel.BasicPay, employeeModel.StartDate, employeeModel.gender, employeeModel.PhoneNumber);
+                            Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}", employeeModel.EmployeeID, employeeModel.EmployeeName, employeeModel.BasicPay, employeeModel.StartDate, employeeModel.gender, employeeModel.PhoneNumber, employeeModel.Department, employeeModel.Address, employeeModel.Deductions, employeeModel.TaxablePay, employeeModel.Tax, employeeModel.NetPay);
                             Console.WriteLine("\n");
                         }
                     }
