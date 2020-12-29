@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 
@@ -72,5 +73,46 @@ namespace EmployeePayrollServiceAdo.net
                 this.connection.Close();
             }
         }
+
+        public bool addEmployee(EmployeeModel employeeModel)
+        {
+            try
+            {
+                using (this.connection)
+                {
+                    SqlCommand cmd = new SqlCommand("SpAddEmployeeDetails", this.connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EmployeeID", employeeModel.EmployeeID);
+                    cmd.Parameters.AddWithValue("@EmployeeName", employeeModel.EmployeeName);
+                    cmd.Parameters.AddWithValue("@PhoneNumber", employeeModel.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@Address", employeeModel.Address);
+                    cmd.Parameters.AddWithValue("@Department", employeeModel.Department);
+                    cmd.Parameters.AddWithValue("@gender", employeeModel.gender);
+                    cmd.Parameters.AddWithValue("@BasicPay", employeeModel.BasicPay);
+                    cmd.Parameters.AddWithValue("@Deductions", employeeModel.Deductions);
+                    cmd.Parameters.AddWithValue("@TaxablePay", employeeModel.TaxablePay);
+                    cmd.Parameters.AddWithValue("@Tax", employeeModel.Tax);
+                    cmd.Parameters.AddWithValue("@NetPay", employeeModel.NetPay);
+                    cmd.Parameters.AddWithValue("@StartDate", DateTime.Now);
+                    this.connection.Open();
+                    var result = cmd.ExecuteNonQuery();
+                    this.connection.Close();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
     }
 }
+
