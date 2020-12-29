@@ -23,6 +23,8 @@ namespace EmployeePayrollServiceAdo.net
             employeeRepo.checkConnection();
             employeeRepo.getAllEmployee();
             employeeRepo.addEmployee(employeeModel);
+            employeeRepo.getParticularEmployee();
+            employeeRepo.getParticularEmployeeBetweenDate();
         }
     }
 }
