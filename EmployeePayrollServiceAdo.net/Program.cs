@@ -9,6 +9,7 @@ namespace EmployeePayrollServiceAdo.net
             Console.WriteLine("Welcomr to the Employee payroll service ado .net program");
             EmployeeRepo employeeRepo = new EmployeeRepo();
             employeeRepo.checkConnection();
+            employeeRepo.getAllEmployee();
         }
     }
 }
