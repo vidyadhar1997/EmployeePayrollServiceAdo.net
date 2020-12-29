@@ -113,6 +113,94 @@ namespace EmployeePayrollServiceAdo.net
                 this.connection.Close();
             }
         }
+
+        public void getParticularEmployee()
+        {
+            try
+            {
+                EmployeeModel employeeModel = new EmployeeModel();
+                using (this.connection)
+                {
+                    string query = @"SELECT name, basic_pay FROM employee_payroll WHERE name = 'Terissa'";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            employeeModel.EmployeeName = sqlDataReader.GetString(0);
+                            employeeModel.BasicPay = sqlDataReader.GetDecimal(1);
+                            Console.WriteLine("{0},{1}",  employeeModel.EmployeeName, employeeModel.BasicPay);
+                            Console.WriteLine("\n");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                    sqlDataReader.Close();
+                    this.connection.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
+        
+        public void getParticularEmployeeBetweenDate()
+        {
+            try
+            {
+                EmployeeModel employeeModel = new EmployeeModel();
+                using (this.connection)
+                {
+                    string query = @"select * from employee_payroll where start_date between CAST('2020-06-01' as date) AND CAST('2020-12-29' as date);";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            employeeModel.EmployeeID = sqlDataReader.GetInt32(0);
+                            employeeModel.EmployeeName = sqlDataReader.GetString(1);
+                            employeeModel.BasicPay = sqlDataReader.GetDecimal(2);
+                            employeeModel.StartDate = sqlDataReader.GetDateTime(3);
+                            employeeModel.gender = Convert.ToChar(sqlDataReader.GetString(4));
+                            employeeModel.PhoneNumber = sqlDataReader.GetString(5);
+                            employeeModel.Department = sqlDataReader.GetString(6);
+                            employeeModel.Address = sqlDataReader.GetString(7);
+                            employeeModel.Deductions = sqlDataReader.GetDouble(8);
+                            employeeModel.TaxablePay = Convert.ToDouble(sqlDataReader.GetFloat(9));
+                            employeeModel.Tax = sqlDataReader.GetDouble(10);
+                            employeeModel.NetPay = Convert.ToDouble(sqlDataReader.GetFloat(11));
+                            Console.WriteLine("{0},{1},{2},{3},{4},{5}", employeeModel.EmployeeID, employeeModel.EmployeeName, employeeModel.BasicPay, employeeModel.StartDate, employeeModel.gender, employeeModel.PhoneNumber);
+                            Console.WriteLine("\n");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                    sqlDataReader.Close();
+                    this.connection.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
     }
 }
 
