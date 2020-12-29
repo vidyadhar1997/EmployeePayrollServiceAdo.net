@@ -10,7 +10,10 @@ namespace EmployeePayrollServiceAdo.net
     {
         public static string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog = payroll_service; Integrated Security = True";
         SqlConnection connection = new SqlConnection(connectionString);
-
+        
+        /// <summary>
+        /// Checks the connection.
+        /// </summary>
         public void checkConnection()
         {
             try
@@ -25,6 +28,10 @@ namespace EmployeePayrollServiceAdo.net
             }
         }
 
+        /// <summary>
+        /// Gets all employee.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public void getAllEmployee()
         {
             try
@@ -74,6 +81,12 @@ namespace EmployeePayrollServiceAdo.net
             }
         }
 
+        /// <summary>
+        /// Adds the employee.
+        /// </summary>
+        /// <param name="employeeModel">The employee model.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public bool addEmployee(EmployeeModel employeeModel)
         {
             try
@@ -114,6 +127,10 @@ namespace EmployeePayrollServiceAdo.net
             }
         }
 
+        /// <summary>
+        /// Gets the particular employee.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public void getParticularEmployee()
         {
             try
@@ -131,7 +148,7 @@ namespace EmployeePayrollServiceAdo.net
                         {
                             employeeModel.EmployeeName = sqlDataReader.GetString(0);
                             employeeModel.BasicPay = sqlDataReader.GetDecimal(1);
-                            Console.WriteLine("{0},{1}",  employeeModel.EmployeeName, employeeModel.BasicPay);
+                            Console.WriteLine("{0},{1}", employeeModel.EmployeeName, employeeModel.BasicPay);
                             Console.WriteLine("\n");
                         }
                     }
@@ -152,7 +169,226 @@ namespace EmployeePayrollServiceAdo.net
                 this.connection.Close();
             }
         }
-        
+
+        /// <summary>
+        /// Gets the aggrigate sum salary.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        public void getAggrigateSumSalary()
+        {
+            try
+            {
+                EmployeeModel employeeModel = new EmployeeModel();
+                using (this.connection)
+                {
+                    string query = @"select gender, sum(basic_pay) from employee_payroll group by gender;";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            employeeModel.gender = Convert.ToChar(sqlDataReader.GetString(0));
+                            employeeModel.BasicPay = sqlDataReader.GetDecimal(1);
+                            Console.WriteLine("{0},{1}", employeeModel.gender, employeeModel.BasicPay);
+                            Console.WriteLine("\n");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                    sqlDataReader.Close();
+                    this.connection.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Gets the aggrigate average salary.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        public void getAggrigateAvgSalary()
+        {
+            try
+            {
+                EmployeeModel employeeModel = new EmployeeModel();
+                using (this.connection)
+                {
+                    string query = @"select gender, avg(basic_pay) from employee_payroll group by gender;";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            employeeModel.gender = Convert.ToChar(sqlDataReader.GetString(0));
+                            employeeModel.BasicPay = sqlDataReader.GetDecimal(1);
+                            Console.WriteLine("{0},{1}", employeeModel.gender, employeeModel.BasicPay);
+                            Console.WriteLine("\n");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                    sqlDataReader.Close();
+                    this.connection.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Gets the aggrigate minimum salary.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        public void getAggrigateMinSalary()
+        {
+            try
+            {
+                EmployeeModel employeeModel = new EmployeeModel();
+                using (this.connection)
+                {
+                    string query = @"select gender, min(basic_pay) from employee_payroll group by gender;";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            employeeModel.gender = Convert.ToChar(sqlDataReader.GetString(0));
+                            employeeModel.BasicPay = sqlDataReader.GetDecimal(1);
+                            Console.WriteLine("{0},{1}", employeeModel.gender, employeeModel.BasicPay);
+                            Console.WriteLine("\n");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                    sqlDataReader.Close();
+                    this.connection.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Gets the aggrigate maximum salary.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        public void getAggrigateMaxSalary()
+        {
+            try
+            {
+                EmployeeModel employeeModel = new EmployeeModel();
+                using (this.connection)
+                {
+                    string query = @"select gender, max(basic_pay) from employee_payroll group by gender;";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            employeeModel.gender = Convert.ToChar(sqlDataReader.GetString(0));
+                            employeeModel.BasicPay = sqlDataReader.GetDecimal(1);
+                            Console.WriteLine("{0},{1}", employeeModel.gender, employeeModel.BasicPay);
+                            Console.WriteLine("\n");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                    sqlDataReader.Close();
+                    this.connection.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Gets the aggrigate count salary.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        public void getAggrigateCountSalary()
+        {
+            try
+            {
+                EmployeeModel employeeModel = new EmployeeModel();
+                using (this.connection)
+                {
+                    string query = @"select gender, count(basic_pay) from employee_payroll group by gender;";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            employeeModel.gender = Convert.ToChar(sqlDataReader.GetString(0));
+                            employeeModel.BasicPay = sqlDataReader.GetInt32(1);
+                            Console.WriteLine("{0},{1}", employeeModel.gender, employeeModel.BasicPay);
+                            Console.WriteLine("\n");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                    sqlDataReader.Close();
+                    this.connection.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Gets the particular employee between date.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public void getParticularEmployeeBetweenDate()
         {
             try
@@ -203,4 +439,5 @@ namespace EmployeePayrollServiceAdo.net
         }
     }
 }
+    
 

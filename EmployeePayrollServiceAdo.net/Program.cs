@@ -25,6 +25,11 @@ namespace EmployeePayrollServiceAdo.net
             employeeRepo.addEmployee(employeeModel);
             employeeRepo.getParticularEmployee();
             employeeRepo.getParticularEmployeeBetweenDate();
+            employeeRepo.getAggrigateSumSalary();
+            employeeRepo.getAggrigateAvgSalary();
+            employeeRepo.getAggrigateMinSalary();
+            employeeRepo.getAggrigateMaxSalary();
+            employeeRepo.getAggrigateCountSalary();
         }
     }
 }

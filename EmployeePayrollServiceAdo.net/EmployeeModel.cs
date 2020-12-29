@@ -4,6 +4,9 @@ using System.Text;
 
 namespace EmployeePayrollServiceAdo.net
 {
+    /// <summary>
+    /// Employee Model Class
+    /// </summary>
     public class EmployeeModel
     {
         public int EmployeeID { get; set; }
